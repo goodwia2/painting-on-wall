@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>See it on your wall</title>
+  <meta name="description" content="Upload a photo of your room and see how a painting looks on your wall.">
+  <meta name="theme-color" content="#f6f4f0">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1>See it on your wall</h1>
+    <p class="tagline">Upload a photo of your space, pick a painting and a frame, then move it wherever you like.</p>
+  </header>
+
+  <main class="app">
+    <section class="stage" id="stage" aria-label="Your wall">
+      <!-- Before a photo is chosen -->
+      <div class="start" id="start">
+        <div class="start-card">
+          <svg class="start-icon" viewBox="0 0 48 48" aria-hidden="true">
+            <rect x="5" y="9" width="38" height="30" rx="3" fill="none" stroke="currentColor" stroke-width="2.5"/>
+            <rect x="17" y="16" width="14" height="11" fill="none" stroke="currentColor" stroke-width="2.5"/>
+            <path d="M5 33h38" stroke="currentColor" stroke-width="2.5"/>
+          </svg>
+          <h2>Add a photo of your wall</h2>
+          <p>Take one now or choose one from your photos. It stays on your device and is never uploaded.</p>
+          <label class="btn btn-primary" id="upload-label">
+            <input type="file" id="file-input" accept="image/*" hidden>
+            Choose photo
+          </label>
+          <button class="btn btn-link" id="sample-btn" type="button">or try a sample room</button>
+          <ul class="tips">
+            <li>Stand back so the whole wall is in view</li>
+            <li>Shoot straight on, at about eye level</li>
+            <li>Include furniture: it helps judge the size</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- After a photo is chosen -->
+      <div class="photo-box" id="photo-box" hidden>
+        <!-- the scene zooms and pans as one: room photo + painting -->
+        <div class="scene" id="scene">
+          <canvas id="photo" aria-hidden="true"></canvas>
+          <div class="art" id="art" tabindex="0" role="img" aria-label="Painting, drag to move">
+            <img id="art-img" alt="" draggable="false">
+            <span class="handle" id="handle" aria-hidden="true"></span>
+            <span class="size-badge" id="size-badge"></span>
+          </div>
+        </div>
+        <div class="zoom-controls" id="zoom-controls">
+          <button type="button" id="zoom-in" aria-label="Zoom in">+</button>
+          <button type="button" id="zoom-out" aria-label="Zoom out">&minus;</button>
+          <button type="button" id="zoom-fit" class="fit" hidden>Fit</button>
+        </div>
+        <div class="status" id="status" hidden><span class="spinner"></span><span id="status-text">Finding a good spot…</span></div>
+      </div>
+      <p class="hint" id="hint" hidden></p>
+    </section>
+
+    <aside class="panel" aria-label="Options">
+      <section class="panel-section">
+        <h3>Painting</h3>
+        <ul class="art-list" id="art-list" role="listbox" aria-label="Choose a painting"></ul>
+      </section>
+
+      <section class="panel-section">
+        <h3>Frame</h3>
+        <div class="segmented" id="frame-picker" role="radiogroup" aria-label="Frame"></div>
+      </section>
+
+      <section class="panel-section" id="size-section">
+        <h3><label for="size-range">Size check</label> <span class="muted" id="size-value">100%</span></h3>
+        <input type="range" id="size-range" min="40" max="250" value="100" step="1">
+        <p class="muted small">We guess the scale of your room from the photo. If the painting looks too big or too small, adjust it here. All paintings keep their true sizes relative to each other.</p>
+      </section>
+
+      <section class="panel-section actions">
+        <button class="btn btn-primary" id="save-btn" type="button" disabled>Save image</button>
+        <div class="row">
+          <label class="btn btn-secondary" id="change-label">
+            <input type="file" id="file-input-2" accept="image/*" hidden>
+            New photo
+          </label>
+          <button class="btn btn-secondary" id="reset-btn" type="button" disabled>Re-centre</button>
+        </div>
+      </section>
+    </aside>
+  </main>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
